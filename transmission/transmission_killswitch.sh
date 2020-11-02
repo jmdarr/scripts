@@ -1,6 +1,7 @@
 #!/bin/env bash
 
-ip=$(dig @resolver1.opendns.com ANY myip.opendns.com +short) || { echo "Could not get IP, exiting."; exit 1; }
+ip=$(dig @resolver1.opendns.com myip.opendns.com +short) || { echo "Could not get IP, exiting."; exit 1; }
+[ "${ip}x" == "x" ] && { echo "Could not get IP, exiting."; exit 1; }
 echo "VPN IP Lookup: ${ip}"
 output=$(/bin/geoiplookup "${ip}")
 echo "VPN Location: ${output}"
